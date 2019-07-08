@@ -1,0 +1,56 @@
+body {
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    width: 900px;
+	margin-bottom: 3em;
+    margin-left: auto;
+    margin-right: auto;
+}
+blockquote {
+	margin-top:0;
+	margin-bottom: 0;
+	margin-left: 1em;
+}
+em {
+	font-weight: normal;
+}
+h1 {
+	background-color: #CCC;
+}
+img#me {
+	float: left;
+	padding-right: 0.5em;
+	padding-bottom: 0.5em;
+}
+h2 {
+	clear: left;
+	margin-top: 1em;
+	margin-bottom: 0;
+}
+table#basicinfo tr td:first-child {
+	font-weight: bold;
+}
+tr.colored, h2 {
+	background-color: #EEE;
+}
+a, a:visited, span.biblink {
+    color:maroon;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.caption {
+    font-size: small;
+    margin-bottom: 1em;
+}
+ol ol {
+	list-style-type: upper-alpha;
+}
+ol ol ol {
+	list-style-type: lower-alpha;
+}
+pre {
+background-color: #EEE;
+border: 1px dashed #CCC;
+padding: 0.5em;
+margin-left: 1em;
+word-wrap: break-word;
+}

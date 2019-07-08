@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+	<head>
+		<link rel="stylesheet" href="styles.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="styles/jquery-ui-1.8.4.custom.css" type="text/css" media="screen" /> 
+		<!--link href="log.php"/-->
+		<script src="pubs/papers.js"></script>
+		<script type="text/javascript">
+		function longestLine(text) {
+		  lines = text.split('\n');
+		  longest = 0;
+		  for(var i=0; i<lines.length; i++) {
+		    len = lines[i].length;
+		    longest = len > longest ? len : longest;
+	    }
+	    return longest;
+		}
+    
+			$().ready(function() {
+				$("#basicinfo tr:even").addClass("colored");
+				
+
+				// hide the abstracts
+				abstracts = $('table blockquote');
+				abstracts.hide();
+
+				//setup the bibtex references
+				$('a[href*=mattpapers_bib]').each(function(ix) {
+				  citekey = this.href.split('#')[1];
+				  abstractBlock = $(this).siblings('blockquote');
+				  text = $(this).text();
+				  newSpan = $('<span/>').text(text);
+				  newSpan.addClass('biblink');
+				  newSpan.attr('name', citekey);
+				  $(this).replaceWith(newSpan);
+				  newSpan.click(function() {
+				    citekey = $(this).attr('name');
+				    cite_text = $('#bibtex a[href$="'+citekey+'"]').parent().text();
+				    pub_title = cite_text.match(/\stitle\s=\s{(.+)}/)[1];
+				    dialog = $('#ref-dialog').dialog({
+				      modal     : true,
+				      minWidth  : 1024,
+				      title     : pub_title,
+				    });
+					dialog.children('pre').text(cite_text)
+				  });
+				  abstractSpan = $('<span>abstract</span>').addClass('biblink');
+				  newSpan.after(abstractSpan);
+				  abstractSpan.click(function() {
+					$(abstracts[ix]).toggle();
+				  });
+				  newSpan.after(' | ');
+
+				  // Add PDF and video links
+				  link = vid_link(citekey);
+				  if(link) {
+				  	link.YouTubePopup({autoplay: 0})
+				  	abstractSpan.after(link);
+				  	abstractSpan.after(' | ');
+				  }
+				  link = pdf_link(citekey);
+				  if(link) {
+				  	abstractSpan.after(link);
+				  	abstractSpan.after(' | ');
+				  }
+				});
+				
+			});
+		</script>
+		<title>Matt Rueben</title>
+	</head>
+	<body>
+		<h1>Matt Rueben</h1>
+		<p><i>"I study how robots and similar technologies will affect people."</i></p> 
+		<img src="Matt_Rueben_portrait.jpg" id="ego" width="200" />
+		<table id="basicinfo">
+			<tr><td colspan="2">Ph.D. Candidate | <a href="http://robotics.oregonstate.edu">Oregon State University</a> | <a href="http://research.engr.oregonstate.edu/prg">Personal Robotics Group</a></td></tr>
+			<!--tr><td>Email:</td><td>ruebenm@onid.oregonstate.edu</td></tr-->
+			<tr><td>Advisor:</td><td><a href="http://web.engr.oregonstate.edu/~smartw/">Bill Smart</a></td></tr>
+			<tr><td>Education:</td><td><a href="http://oregonstate.edu">Oregon State University</a>  H.B.S. Mechanical Engineering</td></tr>
+			<tr><td>Me on:</td><td><a href="http://scholar.google.com/citations?user=ReOwooEAAAAJ&hl=en&oi=ao">Google Scholar</a></td></tr>
+			<tr><td/>          <td><a href="https://github.com/MatthewRueben">Github</a></td></tr>
+		</table>
+		<h2>About</h2>
+
+		<p>
+		  <blockquote>
+		    I am a PhD candidate in the Personal Robotics
+		    group. I graduated from Oregon State University in
+		    2013 with the H.B.S. Degree in Mechanical
+		    Engineering. My current research centers around
+		    securing personal privacy protection for people
+		    using mobile robots. 
+		  </blockquote>
+		</p>
+		<h2>Research Interests</h2>
+		<p>
+			<blockquote>
+			  Human-Robot Interaction, Privacy Protection, Ethics of Robotics 
+			</blockquote>
+		</p>
+		<h2>Current Work</h2>
+		<p>
+		  <blockquote>
+		  <a href="http://research.engr.oregonstate.edu/prg/current-research">Privacy-Sensitive
+		    Robotics</a>: Robots present a new concern for
+		    personal privacy: not only can a remote operator
+		    see through the robot's video cameras, but he or
+		    she can also drive the robot, potentially so as to
+		    view private objects against the owner's
+		    wishes. Our group is studying how people think
+		    about privacy around robots. Our scope goes beyond
+		    personal information to include proxemics,
+		    territory, and feelings of crowding or "being
+		    watched."
+		  </blockquote>
+		</p>
+		<h2>Past Work</h2>
+		<p>
+		  <blockquote>
+		  <a href="http://research.engr.oregonstate.edu/prg/shared-autonomy-interfaces-physical-devices">Shared
+		    Autonomy Interfaces for Using Household
+		    Appliances</a>: Robots can help people around the
+		    house by operating appliances: washing mashines,
+		    microwaves, light switches, or even television
+		    sets. Thus far, this project has yielded
+		    interfaces through which a human can help the
+		    robot locate knobs, light switches, and
+		    push-buttons on a device, after which the robot
+		    can actuate the controls autonomously. In the
+		    future, this work could be extended by building
+		    large, semantic maps of the robot's environment to
+		    help the robot do useful tasks on its own.
+		  </blockquote>
+		</p>
+		<h2>Publications</h2>
+		<div>
+	    <!--#include virtual="mattpapers.html" -->
+    </div>
+    <div id="bibtex" style="display:none">
+      <!--#include virtual="mattpapers_bib.html" -->
+    </div>
+	<div id="ref-dialog" style="display:none">
+		<pre/>
+	</div>
+	<!--#config timefmt="%e %b %Y" -->
+	Updated <!--#echo var="LAST_MODIFIED"-->
+
+    </div>
+    <!--#include virtual="log.php" -->
+	</body>
+</html>
