@@ -4,6 +4,12 @@
   <script src="./test-incall_files/Ohmni-incall.js.download"></script>
   <script>
     var intervalGetVideo;
+
+    function sendJsonCmd(jsonData) {
+      Ohmni.sendJsonCmd(jsonData);
+    }
+
+
     function setRedLight() {
       Ohmni.setLightColor(360, 100, 100);
     }
@@ -129,7 +135,7 @@
 
     Ohmni.on('capi', function(msg) {
       console.log(msg);
-    })
+    }
   </script>
 </head>
 <body onload="onLoad()">
@@ -150,6 +156,7 @@
       <button type="button" data-external="true" class="button" style="padding:30px;margin:20px" onclick="setURL(&#39;https://youtube.com&#39;);">Show youtube on bot</button><br>
       <button type="button" data-external="true" class="button" style="padding:30px;margin:20px" onclick="hidePage();">Back to Call</button><br>
       <button type="button" data-external="true" class="button" style="padding:30px;margin:20px; margin-bottom: 60px" onclick="setRedLight();">Set RED!</button><br>
+      <button type="button" data-external="true" class="button" style="padding:30px;margin:20px; margin-bottom: 60px" onclick="sendJsonCmd({"type":"cmd","code":null,"data":{"type":"jsoncmd","jsonstr":"{\"cmd\":\"setSpeakerVolume\",\"value\":5}"}});">Set Volume to 5</button><br>
     </div>
 
     <div id="bot_info" style="background: white; min-width: 400px; margin: 60px 20px; display: none;">
